@@ -1,0 +1,27 @@
+<h1><%= @article.title %></h1>
+<h1><%= @article.body %></h1>
+<ul>
+  <li><%= link_to "Edit", edit_article_path(@article) %></li>
+  <li><%=link_to "Destroy", article_path(@article),data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+  }%></li>
+</ul>
+
+<h2>Comments</h2>
+<% @article.comments.each do |comment| %>
+  <%= comment.commenter %>
+  <br>
+  <%= comment.body %>
+
+  <li><%=link_to "Destroy", article_comment_path(@article, comment),data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+  }%></li>
+  
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= render "comments/form", article: @article %>
+
+<%= button_to "Home_page","/articles",method: :get %>
